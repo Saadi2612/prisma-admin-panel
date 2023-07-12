@@ -1,25 +1,17 @@
 import { PrismaClient } from '@prisma/client'
+
+// using express to work with requests
 import express, {Request, Response} from "express";
 
 const cors = require('cors');
 
-const prisma = new PrismaClient();
-
-// async function main() {
-//     const users = await prisma.user.findMany()
-//     console.log(users)
-// }
-
-// main().catch(e => {
-//     console.error(e.message)
-// }).finally(async () => {
-//     await prisma.$disconnect
-// })
-
+// PrismaClient to work with prisma schema
+const prisma = new PrismaClient(); 
 
 const app = express();
 app.use(express.json())
 
+//Configuring CORS to allow requests to come from Port 3000 to 5000.
 app.use(cors({ 
   origin: 'http://localhost:3000',
   credentials: true
@@ -32,13 +24,14 @@ app.use((req, res, next) => {
   next();
 });
 
+// GET request for dashboard to show overview of all data
 app.get("/dashboard", async (req: Request, res: Response) => {
-    //console.log("Users")
+    
     try {
         const users = await prisma.user.findMany();
         const properties = await prisma.listing.findMany();
-        //console.log(users);
-        //res.send(users)
+        
+        // Combining users and properties in a single variable as objects to send both in response
         const result = { users, properties };
 
         res.status(200).json(result);
@@ -47,12 +40,12 @@ app.get("/dashboard", async (req: Request, res: Response) => {
     }
 })
 
+// GET request for users
 app.get("/users", async (req: Request, res: Response) => {
-    //console.log("Users")
+    
     try {
         const users = await prisma.user.findMany();
-        //console.log(users);
-        //res.send(users)
+        
         const result = { users };
 
         res.status(200).json(result);
@@ -61,12 +54,12 @@ app.get("/users", async (req: Request, res: Response) => {
     }
 })
 
+// GET request for agents
 app.get("/agents", async (req: Request, res: Response) => {
-    //console.log("agents")
+    
     try {
         const users = await prisma.user.findMany();
-        //console.log(users);
-        //res.send(users)
+        
         const result = { users };
 
         res.status(200).json(result);
@@ -75,12 +68,12 @@ app.get("/agents", async (req: Request, res: Response) => {
     }
 })
 
+// GET request for properties
 app.get("/properties", async (req: Request, res: Response) => {
-    //console.log("properties")
+    
     try {
         const properties = await prisma.listing.findMany();
-        //console.log(properties);
-        //res.send(properties)
+        
         const result = { properties };
 
         res.status(200).json(result);
@@ -89,6 +82,7 @@ app.get("/properties", async (req: Request, res: Response) => {
     }
 })
 
+// UPDATE request for updating users
 app.put("/users/:id", async (req: Request, res: Response) => {
     
     try {
@@ -102,7 +96,7 @@ app.put("/users/:id", async (req: Request, res: Response) => {
             data: {
                 name: name,
                 email: email,
-                updatedAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(), // time stamp of instance of updating user
             },
         });
 
@@ -112,6 +106,7 @@ app.put("/users/:id", async (req: Request, res: Response) => {
     }
 })
 
+// UPDATE request for updating agents
 app.put("/agents/:id", async (req: Request, res: Response) => {
     
     try {
@@ -125,7 +120,7 @@ app.put("/agents/:id", async (req: Request, res: Response) => {
             data: {
                 name: name,
                 email: email,
-                updatedAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(), // time stamp of instance of updating user
                 agency: agency,
                 agency_description: agency_description,
                 agency_address: agency_address,
@@ -138,6 +133,7 @@ app.put("/agents/:id", async (req: Request, res: Response) => {
     }
 })
 
+// UPDATE request for updating properties
 app.put("/properties/:id", async (req: Request, res: Response) => {
     
     try {
@@ -175,6 +171,7 @@ app.put("/properties/:id", async (req: Request, res: Response) => {
     }
 })
 
+// DELETE request for deleting users
 app.delete("/users/:id", async (req: Request, res: Response) => {
     
     try {
@@ -192,6 +189,7 @@ app.delete("/users/:id", async (req: Request, res: Response) => {
     }
 })
 
+// DELETE request for deleting agents
 app.delete("/agents/:id", async (req: Request, res: Response) => {
     
     try {
@@ -209,6 +207,7 @@ app.delete("/agents/:id", async (req: Request, res: Response) => {
     }
 })
 
+// DELETE request for deleting properties
 app.delete("/properties/:id", async (req: Request, res: Response) => {
     
     try {

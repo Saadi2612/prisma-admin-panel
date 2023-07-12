@@ -286,6 +286,7 @@ const Properties = () => {
                 onChange={handleInputChange}
               />
               <CFormInput
+                title='City'
                 type="text"
                 size="sm"
                 //placeholder="Enter New Password"
@@ -295,6 +296,7 @@ const Properties = () => {
                 onChange={handleInputChange}
               />
               <CFormInput
+                title='Location'
                 type="text"
                 size="sm"
                 //placeholder="Enter New Password"
@@ -304,6 +306,7 @@ const Properties = () => {
                 onChange={handleInputChange}
               />
               <CFormInput
+                title='Area'
                 type="text"
                 size="sm"
                 //placeholder="Enter New Password"
@@ -313,6 +316,7 @@ const Properties = () => {
                 onChange={handleInputChange}
               />
               <CFormInput
+                title='Rooms'
                 type="text"
                 size="sm"
                 //placeholder="Enter New Password"
@@ -322,6 +326,7 @@ const Properties = () => {
                 onChange={handleInputChange}
               />
               <CFormInput
+                title='Bathrooms'
                 type="text"
                 size="sm"
                 //placeholder="Enter New Password"
@@ -331,6 +336,7 @@ const Properties = () => {
                 onChange={handleInputChange}
               />
               <CFormInput
+                title='TV Lounges'
                 type="text"
                 size="sm"
                 //placeholder="Enter New Password"
@@ -340,6 +346,7 @@ const Properties = () => {
                 onChange={handleInputChange}
               />
               <CFormInput
+                title='Kitchens'
                 type="text"
                 size="sm"
                 //placeholder="Enter New Password"
@@ -349,6 +356,7 @@ const Properties = () => {
                 onChange={handleInputChange}
               />
               <CFormInput
+                title='Drawing Rooms'
                 type="text"
                 size="sm"
                 //placeholder="Enter New Password"
@@ -358,6 +366,7 @@ const Properties = () => {
                 onChange={handleInputChange}
               />
               <CFormInput
+                title='Balcony'
                 type="text"
                 size="sm"
                 //placeholder="Enter New Password"
@@ -367,6 +376,7 @@ const Properties = () => {
                 onChange={handleInputChange}
               />
               <CFormInput
+                title='Servant Quarters'
                 type="text"
                 size="sm"
                 //placeholder="Enter New Password"

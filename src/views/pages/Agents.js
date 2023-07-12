@@ -33,13 +33,13 @@ const Agents = () => {
     name: '',
   });
 
-
+  // making get request for agents
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
         "http://localhost:5000/agents"
       );
-      setRecords(response.data.users);
+      setRecords(response.data.users); // filling records array with response from backend
       
     } catch (error) {
       console.error("Failed to get users:", error);
@@ -50,10 +50,13 @@ const Agents = () => {
     fetchUsers();
   }, []);
 
+  // This function set the user details when update button is clicked.
   const handleUpdateClick = (user) => {
-    setSelectedUser(user);
+    setSelectedUser(user); // data of selected user assigned to selectedUser
     setVisible(true);
+
     // Set the initial values in the form fields
+    // this state will be used to fill form fields when update button is clicked
     setUpdatedValues({
       id: user.id,
       name: user.name,
@@ -64,6 +67,7 @@ const Agents = () => {
     });
   };
 
+  // handle input change in the fields
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUpdatedValues((prevValues) => ({
@@ -72,6 +76,7 @@ const Agents = () => {
     }));
   };
 
+  // function to display toast
   const [toastVisible, setToastVisible] = useState(false);
   const updateSuccessToast = () => {
     setToastVisible(!toastVisible);
@@ -80,25 +85,29 @@ const Agents = () => {
       setToastVisible(false);
     }, 2000);
   }
+
+  // function will be executed on clicking save changes button
   const handleSaveChanges = async(id) => {
     // Make the API request to update the user with updatedValues
     try {
       const { data } = await axios.put(
         "http://localhost:5000/agents/" + id,
         {
+          // sending data to the backend
           name: updatedValues.name,
           email: updatedValues.email,
           agency: updatedValues.agency,
           agency_description: updatedValues.agency_description,
           agency_address: updatedValues.agency_address,
-          //updatedAt: Date.now(),
         },
         {
           withCredentials: true,
         }
       );
       
+      // to display toast
       updateSuccessToast();
+      // fetching the latest updated data from the database
       fetchUsers();
     
     } catch (err) {
@@ -118,6 +127,7 @@ const Agents = () => {
     });
   };
 
+  // delete function
   const handleDeleteClick = async (id) => {
     try {
       const del_result = await axios.delete(
@@ -125,7 +135,7 @@ const Agents = () => {
       );
       // Perform any necessary updates or fetch the updated records list
       fetchUsers();
-      //console.log(del_result);
+      
     } catch (error) {
       console.error("Failed to delete record:", error);
     }
@@ -149,6 +159,7 @@ const Agents = () => {
           (<CAccordionItem key={index+1} itemKey={1}>
             <CAccordionHeader>{ item.name }</CAccordionHeader>
             <CAccordionBody>
+              {/*Displaying details when accordion is expanded*/}
                 <strong>ID: </strong> {item.id}
                 <br />
                 <strong>Email: </strong> {item.email}
@@ -162,6 +173,7 @@ const Agents = () => {
                 <strong>Agency Address: </strong> {item.agency_address}
 
                 <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                  {/* update button */}
                     <CButton
                       onClick={() => handleUpdateClick(item)}
                       color="primary"
@@ -169,6 +181,8 @@ const Agents = () => {
                     >
                       Update
                     </CButton>
+
+                    {/*Delete button*/}
                     <CButton onClick={() => handleDeleteClick(item.id)} color="danger">Delete</CButton>
                 </div>
                 
